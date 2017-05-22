@@ -13,6 +13,21 @@
 	font-size: 23px;
 }
 
+.help-uni{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.row.no-gutter{
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child), .row.no-gutter [class*='col-']:not(:last-child){
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
 .navButton {
 	color: #fff;
 	text-decoration: none;
@@ -29,7 +44,7 @@
 
 .navButton.active {
 	background-color: #3c3c3c;
-}	
+}
 
 .pageFiller{
 	background-color: #333333;
@@ -153,7 +168,7 @@
 	width: 350px;
 }
 
-.reg-content input[type=text], .reg-content input[type=email], .reg-content input[type=password], .reg-content select {
+.reg-content input[type=text], input[type=textarea] , .reg-content input[type=email], .reg-content input[type=password], .reg-content select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -163,6 +178,11 @@
     box-sizing: border-box;
     font-size: 17px;
     text-align: center;
+		height: auto;
+}
+
+.exparea{
+	margin-bottom: 10px;
 }
 
 .signup-form {
@@ -178,7 +198,7 @@
 /* Matches config */
 
 .module-container.match {
-    background: #f1f1f1;	
+    background: #f1f1f1;
 	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 	transition: all .2s ease-in-out;
 }
@@ -193,7 +213,7 @@
 #single-matches a {
 	text-decoration: none;
 	color: #000;
-	
+
 }
 
 #single-matches li {
@@ -203,7 +223,7 @@
 	cursor: pointer;
 }
 
-.match-photo {	
+.match-photo {
 	margin-right: 10px;
 	float: left;
 }
@@ -231,10 +251,10 @@
 }
 
 #sampleMatch .modal-content {
-	border-top: 1px solid #ccc;	
+	border-top: 1px solid #ccc;
 	justify-content: center;
 	padding: 0;
-	
+
 }
 
 .module-container.match:hover { transform: scale(1.05); }
@@ -269,7 +289,7 @@
 .module-footer.experience {
 	display: none;
 	border: none;
-	background-color: #fff;	
+	background-color: #fff;
 }
 
 .module-footer.experience.active {
@@ -278,7 +298,7 @@
 }
 
 .module-content.notices {
-	padding: 15px;	
+	padding: 15px;
 	background-color: #fff;
 	text-align: center;
 }
@@ -312,7 +332,7 @@
 	display: flex;
 	flex-wrap: wrap;
     border-top: 1px solid #ccc;
-    padding: 10px 10px 10px 20px;	
+    padding: 10px 10px 10px 20px;
 }
 
 /* Modal Config */
@@ -327,13 +347,13 @@
 	height: 100%;
     overflow: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); 
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-wrapper {
 	overflow: auto;
 	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-	border-radius: 6px;	
+	border-radius: 6px;
     background-color: #fefefe;
 	margin: 100px auto auto auto;
     border: 1px solid #888;
@@ -355,7 +375,7 @@
 
 .modal-header {
 	font-size: 20px;
-	font-weight: bold;	
+	font-weight: bold;
 	padding: 20px;
 	text-align: center;
 	background-color: #333333;
@@ -415,7 +435,7 @@
 	margin-right: 10px;
 	height: 20px;
 	width: 20px;
-    cursor: pointer;	
+    cursor: pointer;
 }
 
 .textHeader {
@@ -428,7 +448,7 @@
     background-color: #fff;
 	cursor: auto;
 }
-.drop-btn:hover, .drop-btn:focus {	
+.drop-btn:hover, .drop-btn:focus {
 	background-color: #ddd;
 }
 
@@ -437,7 +457,7 @@
 }
 
 .drop-content {
-    cursor: pointer;	
+    cursor: pointer;
 	overflow-y: scroll;
 	max-height: 408px;
     display: none;
@@ -473,9 +493,9 @@
 
 /* Responsive config */
 
-@media (min-width: 650px) { 
+@media (min-width: 650px) {
 	.modal-wrapper {
-	    width: 650px;	
+	    width: 650px;
 	}
 	#signup-wrapper {
 		width: 650px;
@@ -489,29 +509,29 @@
 }
 
 @media (min-width: 1100px) {
-	
+
 	.module-container.left {
 		margin-right: 20px;
 	}
-	
+
 	.threeElement {
 		float: left;
 		width: 33.333333%
 	}
-	
+
 	.twoElement {
 		float: left;
 		width: 50%
 	}
-	
+
 	.container {
 		width: 1100px;
 	}
-	
+
 	#topNav {
 		width: 1100px;
 	}
-	
+
 }
 
 /* Globals */
@@ -546,7 +566,7 @@ h1 {
 
 body {
 	position: relative;
-	flex-direction: column;	
+	flex-direction: column;
 	min-height: 100%;
 	display: flex;
 	margin: 0px;

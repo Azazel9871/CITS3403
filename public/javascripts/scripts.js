@@ -1,51 +1,51 @@
 window.onload = function() {
-	
+
 	if (document.getElementsByTagName("body")[0].className.match("control")) { //Only for user panel page
-		var subUnits = document.getElementById('unitSubmit'); //Unit submit button	
+		var subUnits = document.getElementById('unitSubmit'); //Unit submit button
 		var subDays = document.getElementById('availSubmit'); //Availability submit button
 		var unitEditBtn = document.getElementById("unit-edit-btn"); //Edit units button
 		var expEditBtn = document.getElementById("edit-exp"); //Edit experience button
 		var cancelBtn = document.getElementById("cancel-exp"); //Cancel experience edit mode button
 		var availabilityEditBtn = document.getElementById("availability-edit-btn"); //Edit availability buttion
 		var dayBoxes = document.getElementsByClassName('day'); //All availability day checkboxes
-		
+
 		//Number of units; fetch from LMS
 		var unitNo = 4;
-		
+
 		unitEditBtn.onclick = function() {
 			document.getElementById('unitModal').style.display = "block";
 		}
-		
-		availabilityEditBtn.onclick = function() {	
-			document.getElementById('availabilityModal').style.display = "block";			
+
+		availabilityEditBtn.onclick = function() {
+			document.getElementById('availabilityModal').style.display = "block";
 		}
-		
+
 		//Handler for "edit mode" experience entries
 		var editToggle = false;
-		var vacantExp;	
+		var vacantExp;
 		var experience = document.getElementById('experience');
 		expEditBtn.onclick = function(e) {
-			var final = true;	
-			var expHeaders = experience.getElementsByClassName('module-content-header');	
-			var expContents = experience.getElementsByClassName('module-content-text');		
+			var final = true;
+			var expHeaders = experience.getElementsByClassName('module-content-header');
+			var expContents = experience.getElementsByClassName('module-content-text');
 			var addBtn = document.getElementById("add-exp");
 			var removeBars = document.getElementsByClassName("module-footer experience");
-			if (editToggle == false) {			
+			if (editToggle == false) {
 				for (var i=0; i<expHeaders.length; i++) {
 					var headerName = expHeaders[i].innerText;
 					var contentText = expContents[i].innerText;
 					expHeaders[i].innerHTML = '<textarea class="textHeader" rows="1" cols="62" maxlength = "50"></textarea>';
 					expContents[i].innerHTML = '<textarea rows="8" cols="62"></textarea>';
 					expHeaders[i].childNodes[0].value = headerName;
-					expContents[i].childNodes[0].value = contentText;			
+					expContents[i].childNodes[0].value = contentText;
 				}
 				//Toggle + and - buttons
 				addBtn.classList.toggle("active");
 				for (var i=0; i<removeBars.length; i++) {
 					removeBars[i].classList.toggle("active");
-				}				
+				}
 				expEditBtn.innerText=("Save");
-				editToggle = !editToggle;			
+				editToggle = !editToggle;
 			}
 			else {
 				for (var i=0; i<expHeaders.length; i++) {
@@ -57,18 +57,18 @@ window.onload = function() {
 				if (final) {
 					for (var i=0; i<expHeaders.length; i++) {
 					expHeaders[i].innerHTML = expHeaders[i].childNodes[0].value;
-					expContents[i].innerHTML = expContents[i].childNodes[0].value;						
-					}				
+					expContents[i].innerHTML = expContents[i].childNodes[0].value;
+					}
 					addBtn.classList.toggle("active");
 					for (var i=0; i<removeBars.length; i++) {
 						removeBars[i].classList.toggle("active");
-					}				
-					expEditBtn.innerText=("Edit") 
-					editToggle = !editToggle;	
+					}
+					expEditBtn.innerText=("Edit")
+					editToggle = !editToggle;
 				}
 			}
 		}
-		
+
 		//Remove experience entry
 		function syncRemoves(e) {
 			var removeBtns = experience.getElementsByClassName('removeExp');
@@ -79,17 +79,17 @@ window.onload = function() {
 					if (experience.childNodes[1].getElementsByTagName("li").length == 0) {
 						vacantText(e.target);
 						vacantExp = true;
-					}		
+					}
 				}
 			}
 		}
-		syncRemoves();	
-		
+		syncRemoves();
+
 		//Add experience entry
 		var addBtn = document.getElementById('add-exp');
 		addBtn.onclick = function() {
 			if (vacantExp) { experience.childNodes[1].innerHTML = "" }
-			var newListItem = document.createElement("li");			
+			var newListItem = document.createElement("li");
 			var moduleContentHeader = document.createElement("div");
 			moduleContentHeader.className = "module-content-header";
 			var moduleContentText = document.createElement("div");
@@ -104,9 +104,9 @@ window.onload = function() {
 			newListItem.appendChild(moduleFooter);
 			experience.childNodes[1].appendChild(newListItem);
 			vacantExp = false;
-			syncRemoves();	
+			syncRemoves();
 		}
-		
+
 		//Change bg of selected units
 		function changeBG(i) {
 			if (document.getElementById('unit-checked' + i).checked) {
@@ -115,7 +115,7 @@ window.onload = function() {
 				document.getElementById('unit-single' + i).style.backgroundColor = '#fff';
 			}
 		}
-		
+
 		//Assign change BG function to units
 		//Badly written
 		for (var i=1; i<unitNo+1; i++) {
@@ -123,8 +123,8 @@ window.onload = function() {
 				document.getElementById('unit-checked' + i).addEventListener('change', function(){changeBG(ii);} );
 			}(i)
 		}
-		
-		
+
+
 		//Submit availability handler
 		subDays.onclick = function(e) {
 			var finalized = 1;
@@ -140,36 +140,36 @@ window.onload = function() {
 					};
 					if (insert.lowerTime.classList.contains('inactive') && insert.upperTime.classList.contains('inactive')) {
 						addItem(e.target, insert);
-						noAdded++;			
+						noAdded++;
 					}
 					else { finalized = 0; }
 				}
 			}
 			if (noAdded == 0) {
-				vacantText(e.target);			
+				vacantText(e.target);
 			}
 			if (finalized == 1) { openModal.style.display = "none"; }
 			else { alert("Select specify an availability time!"); }
 		}
-		
+
 		//Submit unit handler
 		subUnits.onclick = function(e) {
-			var noAdded = 0;		
+			var noAdded = 0;
 			clearItems(e.target);
 			for (var i=1; i<unitNo+1; i++) {
 				if (document.getElementById('unit-checked' + i).checked){
 					addItem(e.target, document.getElementById('unit-checked' + i).parentElement.innerText);
 					noAdded++;
-				} 
+				}
 			}
 			if (noAdded == 0) {
 				vacantText(e.target);
 			}
 			openModal.style.display = "none";
 		}
-		
+
 		//Removes all items from the callers item list
-		function clearItems(caller) {	
+		function clearItems(caller) {
 			var itemList;
 			if (caller.id == "unitSubmit") {
 				itemList = document.getElementById("unit-list");
@@ -179,7 +179,7 @@ window.onload = function() {
 			}
 			clearChildren(itemList);
 		}
-		
+
 		//Adds an item to the callers list
 		function addItem(caller, itemContent) {
 			var node;
@@ -189,7 +189,7 @@ window.onload = function() {
 			newListItem.appendChild(newItemDiv);
 			if (caller.id == "unitSubmit") {
 				node = document.createTextNode(itemContent);
-				newItemDiv.appendChild(node);			
+				newItemDiv.appendChild(node);
 				var unitList = document.getElementById("unit-list");
 				unitList.appendChild(newListItem);
 			}
@@ -201,10 +201,10 @@ window.onload = function() {
 				dayList.appendChild(newListItem);
 			}
 		}
-		
+
 		//Adds vacant text to the item list
-		function vacantText(caller) {				
-			var newListItem = document.createElement("li");			
+		function vacantText(caller) {
+			var newListItem = document.createElement("li");
 			var newItemDiv = document.createElement("div");
 			var node;
 			newItemDiv.className = "module-content-text vacantTxt";
@@ -213,12 +213,12 @@ window.onload = function() {
 				node = document.createTextNode("No units selected!");
 				var unitList = document.getElementById("unit-list");
 				newItemDiv.appendChild(node);
-				unitList.appendChild(newListItem);				
+				unitList.appendChild(newListItem);
 			}
-			else if (caller.id == "availSubmit") { 
-				node = document.createTextNode("No days selected!") 
-				var dayList = document.getElementById("day-list");	
-				newItemDiv.appendChild(node);	
+			else if (caller.id == "availSubmit") {
+				node = document.createTextNode("No days selected!")
+				var dayList = document.getElementById("day-list");
+				newItemDiv.appendChild(node);
 				dayList.appendChild(newListItem);
 			}
 			else if (caller.id == "edit-exp" || caller.classList.contains('removeExp')) {
@@ -227,8 +227,8 @@ window.onload = function() {
 				newItemDiv.appendChild(node);
 				expList.appendChild(newListItem);
 			}
-		}		
-		
+		}
+
 		//Handler to open dropdowns
 		var dropdowns = document.getElementsByClassName("dropdown");
 		for (var i=0; i<dropdowns.length; i++) {
@@ -243,8 +243,8 @@ window.onload = function() {
 						}
 					}
 				});
-		}		
-				
+		}
+
 		//Handles when a specific time is selected
 		//Updates dropdown button text & activates/deactivates buttons under certain conditions
 		var times = document.getElementsByClassName("drop-content");
@@ -252,12 +252,12 @@ window.onload = function() {
 			times[i].addEventListener("click", function(e) {
 					var buttonText = e.target.parentElement.parentElement.childNodes[1];
 					var lowerTime = e.target.parentElement.parentElement.parentElement.childNodes[1];
-					var upperTime = e.target.parentElement.parentElement.parentElement.childNodes[5];	
+					var upperTime = e.target.parentElement.parentElement.parentElement.childNodes[5];
 					if (e.target.tagName.toLowerCase() === 'a') {
 						buttonText.innerText = e.target.innerText;
 					}
 					if(buttonText.parentElement == lowerTime) {
-						if (upperTime.classList.contains("inactive")){ 
+						if (upperTime.classList.contains("inactive")){
 						upperTime.classList.toggle("inactive");
 						}
 						//remove elements that are not valid times
@@ -265,16 +265,16 @@ window.onload = function() {
 					}
 					else {
 						upperTime.classList.toggle("inactive");
-						lowerTime.classList.toggle("inactive");	
-					}				
+						lowerTime.classList.toggle("inactive");
+					}
 			});
 		}
-		
+
 		//Updates a dropdown menu to only display times after chosenTime
 		function updateTimes(chosenTime, dropdown){
 			var realTimes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
 			var textTimes = ["00:00am", "1:00am","2:00am","3:00am","4:00am","5:00am","6:00am","7:00am","8:00am","9:00am","10:00am","11:00am","12:00pm","1:00pm","2:00pm","3:00pm","4:00pm","5:00pm","6:00pm","7:00pm","8:00pm","9:00pm","10:00pm","11:00pm","12:00am"];;
-			var dropContent = dropdown.childNodes[3];	
+			var dropContent = dropdown.childNodes[3];
 			//upper bound
 			for (var i=0; i<realTimes.length; i++) {
 				if (chosenTime == "12:00am") { chosenTime = "00:00am" };
@@ -282,20 +282,20 @@ window.onload = function() {
 					clearChildren(dropContent);
 					for (var z=i+1; z<realTimes.length; z++) {
 						var validTime = document.createElement("a");
-						var node = document.createTextNode(textTimes[z]);	
+						var node = document.createTextNode(textTimes[z]);
 						validTime.appendChild(node);
-						dropContent.appendChild(validTime);				
+						dropContent.appendChild(validTime);
 					}
 				}
 			}
 		}
-		
+
 		//Clears all children of a given element
 		function clearChildren(elemnt) {
 			elemnt.innerHTML = '';
-		}		
-		
-		//Enables/disables avaibility buttons based on checkbox state			
+		}
+
+		//Enables/disables avaibility buttons based on checkbox state
 		for (var i=0; i<dayBoxes.length; i++) {
 			dayBoxes[i].addEventListener("change", function(e) {;
 				var timeframe;
@@ -304,45 +304,45 @@ window.onload = function() {
 					if (liElements[i].nodeName == "DIV") {
 						timeframe = liElements[i];
 					}
-				}				
-				if (e.target.checked) {
-						timeframe.childNodes[1].classList.toggle("inactive");						
 				}
-				else { 
+				if (e.target.checked) {
+						timeframe.childNodes[1].classList.toggle("inactive");
+				}
+				else {
 					//reset to 0
 					for (var i=0; i<timeframe.childNodes.length; i++) {
 						if (timeframe.childNodes[i].nodeName == "DIV") {
 							var dropdown = timeframe.childNodes[i];
 							dropdown.childNodes[1].innerText = "0:00";
 							if (!dropdown.classList.contains("inactive")) {
-								dropdown.classList.toggle("inactive");	
+								dropdown.classList.toggle("inactive");
 							}
 						}
-					}				
+					}
 				}
-				
+
 			});
-		}				
+		}
 	}
-	
+
 	else if (document.getElementsByTagName("body")[0].className.match("matches")) { // Only for matches page
 		var matchTabs = document.getElementsByClassName('match-tab'); //Match tabs on modal
-		var matchList = document.getElementById('single-matches'); //List of matches	
+		var matchList = document.getElementById('single-matches'); //List of matches
 		var matches = matchList.getElementsByTagName('li');
 		var matchModal = document.getElementById('sampleMatch');
-		
+
 		for (var i=0; i<matches.length; i++) {
 			matches[i].addEventListener("click", function() {
 				document.getElementById('sampleMatch').style.display = "block";
 			})
 		}
-	
+
 		//Event handler for tab switching in match viewer
 		for (var i=0; i<matchTabs.length; i++) {
 			matchTabs[i].addEventListener("click", function(e) {
 				var openTab = getActiveTab();
 				sampleMatch.getElementsByClassName('tab-content')[openTab].classList.toggle('active');
-				sampleMatch.getElementsByClassName('match-tab')[openTab].classList.toggle('active');	
+				sampleMatch.getElementsByClassName('match-tab')[openTab].classList.toggle('active');
 				if (e.target.classList.contains("exp")) {
 					sampleMatch.getElementsByClassName('exp')[0].classList.toggle('active');
 					sampleMatch.getElementsByClassName('exp')[1].classList.toggle('active');
@@ -357,7 +357,7 @@ window.onload = function() {
 				}
 			})
 		}
-		
+
 		//Gets the active tab number
 		function getActiveTab(){
 			for (var i=0; i<matchTabs.length; i++) {
@@ -366,9 +366,9 @@ window.onload = function() {
 					return i;
 				}
 			}
-		}	
+		}
 	}
-	
+
 	else if (document.getElementsByTagName("body")[0].className.match("index")) { // Only for index page
 		var loginBtn = document.getElementById("loginBtn"); //Login button
 		loginBtn.onclick = function() {
@@ -376,30 +376,30 @@ window.onload = function() {
 		}
 	}
 	var allModals = document.getElementsByClassName('modal'); //All modal elements
-	var allDropDowns = document.getElementsByClassName('drop-content'); //All dropdown elements	
+	var allDropDowns = document.getElementsByClassName('drop-content'); //All dropdown elements
 	var closes = document.getElementsByClassName("close"); //All close buttons (for modals)
-	
-	//Global modal setting - close button		
+
+	//Global modal setting - close button
 	for (var i=0; i < closes.length; i++) {
 		var close = closes[i];
 		close.onclick = function() {
 			openModal.style.display = "none";
 		}
 	}
-	//Click outside modal/dropdown 
+	//Click outside modal/dropdown
 	window.onclick = function(event) {
-		openModal = getOpenModal();	
+		openModal = getOpenModal();
 		openDropDown = getOpenDropdown();
-		if (event.target == openModal) {			
+		if (event.target == openModal) {
 			openModal.style.display = "none";
-		}	
+		}
 		if (!event.target.matches('.drop-btn') && typeof openDropDown != "undefined") {
 			openDropDown.classList.remove('show');
-		}			
-	}	
+		}
+	}
 
 	//Returns open modal
-	function getOpenModal() {;	
+	function getOpenModal() {;
 		for (var i=0; i < allModals.length; i++) {
 			var curDisp = document.getElementsByClassName('modal')[i];
 			if (curDisp.hasAttribute("style") && curDisp.style.display != "none") {
@@ -408,7 +408,7 @@ window.onload = function() {
 		}
 		return null;
 	}
-	
+
 	//Returns open dropdown
 	function getOpenDropdown() {
 		var curDrop;
@@ -419,7 +419,7 @@ window.onload = function() {
 			}
 		}
 	}
-	
+
 	//Validates valid form entries
 	function validateSignUp() {
 		var uname = document.forms["sign-up-form"]["uname"].value;
@@ -452,7 +452,42 @@ window.onload = function() {
 			return false;
 		}
 	}
-	
+
 	document.getElementById("footer-lastmodified").innerHTML = "Last Modified: " + document.lastModified;
-	
+
 };
+
+String.prototype.format = function () {
+        var args = [].slice.call(arguments);
+        return this.replace(/(\{\d+\})/g, function (a){
+            return args[+(a.substr(1,a.length-2))||0];
+        });
+};
+
+function addExperience(){
+	var row = document.getElementById('experienceRow');
+	var count = Math.round ( (row.childNodes.length/2) + 1 );
+	console.log(count);
+	//var cloned = document.getElementById('experienceRow').cloneNode(true
+
+	var inputcount = document.createElement('input');
+	inputcount.type = 'text';
+	inputcount.placeholder = 'Title';
+	inputcount.name = "exp[{0}][title]".format(count);
+
+	var inputText = document.createElement('textarea');
+	inputText.className = 'form-control exparea';
+	inputText.rows = '5';
+	inputText.name = "exp[{0}][desc]".format(count);
+	inputText.placeholder = 'Write your experiences here!';
+
+	console.log(inputcount.innerHTML);
+	console.log(inputText.innerHTML);
+	//row.innerHTML += ("<input type=\'text\', name=\'exp[" + count + "\][title]', placeholder=\'Title\')>")
+	//row.innerHTML += ("<textarea class='form-control exparea', rows='5', name='exp[" + count + "\][desc]', placeholder='Write your experiences here!' >");
+
+	row.insertBefore(inputText, row.firstChild);
+	row.insertBefore(inputcount, row.firstChild);
+
+
+}

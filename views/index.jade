@@ -7,24 +7,7 @@ block content
       img#logo(src='images/2.png', alt='StudyFinder')
       p StudyFinder is a fast and simple tool that makes finding study partners easy.
       p You are currently not logged in!
-      button#loginBtn.button Login
-    #loginModal.modal
-      #loginModalWrap.modal-wrapper
-        .modal-header
-          a Login to StudyFinder
-        .modal-content
-          .reg-content
-            form(name='sign-up-form', onsubmit='return validateSignUp()', method='POST')
-              input(type='text', name='uname', placeholder='Username', required='')
-              br
-              input(type='password', name='fname', placeholder='Password', required='')
-              br
-              br
-              input#login-submit.button(type='submit', value='Submit')
-            br
-        .modal-footer
-          .cent-txt
-            a Forgot your password?
+      a#loginBtn.button(href='/users/login') Login
     #row1.row
       .threeElement
         h1 Search

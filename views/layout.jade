@@ -2,8 +2,8 @@ doctype html
 html(lang='en')
   head
     title= title
-    link(href='stylesheets/style.css', rel='stylesheet')
-    link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheets/style.css', rel='stylesheet')
+    link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
   body(class=name)
     if !loggedIn
       .pageFiller
@@ -12,12 +12,22 @@ html(lang='en')
             .navbar-header
               a#navBrand.navbar-brand(href='/') StudyFinder
             ul.nav.navbar-nav.navbar-right
-              li
-                a.navButton(href='/signup') Sign Up
+                if user
+                  li
+                    a.navButton(href='/users/matches') Matches
+                  li
+                    a.navButton(href='/users/profile') Profile
+                  li
+                    a.navButton(href='/users/logout') Logout
+                else
+                  li
+                    a.navButton(href='/users/register') Sign Up
+                  li
+                    a.navButton(href='/users/login') Login
     block content
     footer.pageFiller
       .container.footer
         #footer-lastmodified
-    script(src='javascripts/scripts.js')
-    script(src='javascripts/jquery.min.js')
-    script(src='javascripts/bootstrap.min.js')
+    script(src='/javascripts/scripts.js')
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')

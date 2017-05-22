@@ -1,0 +1,50 @@
+extends layout
+
+block content
+	.container.content
+		#row3.row
+			#signup-wrapper.fullElement
+				h1 Profile
+		.row
+			.col-lg-6
+				.reg-content
+					form(multipart='urlencoded', name='sign-up-form', method='POST' action="/users/register/update")
+						input(type='text', name='uname', placeholder='Username', value=user.username ,required='')
+						br
+						.row
+							.col-md-6
+								input(type='text', name='fname', placeholder='First Name', value=user.fname ,required='')
+							.col-md-6
+								input(type='text', name='lname', placeholder='Last Name', value=user.lname , required='')
+						.row
+							.col-md-6
+								input(type='text', name='age', value=user.age, placeholder='Age')
+							.col-md-6
+								input(type='text', name='phone', value=user.phone ,placeholder='Phone')
+						input(type='text', name='uni', placeholder='University', required='' ,value='University of Western Australia (UWA)' readonly)
+						span#helpBlock.help-block.bg-info.help-uni  Currently only supporting UWA
+						input(type='email', name='email', placeholder='Email', value=user.email ,required='')
+						br
+						h4 Enter up to four units
+						.row.no-gutter
+							.col-md-3
+								input(type='text', maxlength=8 , name='unit1', placeholder='Unit Code', value=user.units[0])
+							.col-md-3
+								input(type='text' , maxlength=8 , name='unit2', placeholder='Unit Code', value=user.units[1])
+							.col-md-3
+								input(type='text' , maxlength=8 , name='unit3', placeholder='Unit Code', value=user.units[2])
+							.col-md-3
+								input(type='text' , maxlength=8 , name='unit4', placeholder='Unit Code', value=user.units[3])
+						br
+						button.btn.btn-default.pull-right(type='button' onclick = 'addExperience()') Add Experience
+						br
+						br
+						div#experienceRow
+						- if( typeof(exp) !== 'undefined' && exp !== null ){
+								each e , index in exp
+									input(type='text', name='exp[' + index +'][title]', placeholder='Title', value=exp[index].title )
+									textarea.form-control.exparea( name='exp[' + index +'][desc]', placeholder='Write your experience here !')=  exp[index].desc
+						- }
+						input.button(type='submit', value='Update')
+					br
+			.col-lg-6

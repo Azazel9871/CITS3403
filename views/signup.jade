@@ -5,29 +5,50 @@ block content
 		#row3.row
 			#signup-wrapper.fullElement
 				h1 Create a StudyFinder Profile
+				ul
+					if errors
+						each e in errors
+							div.alert.alert-success(role='alert')
+								a.alert-link(href='#')=e.msg
 				.reg-content
-					form(name='sign-up-form', onsubmit='return validateSignUp()', method='POST')
+					form(multipart='urlencoded', name='sign-up-form', method='POST' action="/users/register")
 						input(type='text', name='uname', placeholder='Username', required='')
 						br
-						input(type='text', name='fname', placeholder='First Name', required='')
-						br
-						input(type='text', name='lname', placeholder='Last Name', required='')
-						br
-						input(type='text', name='uni', placeholder='University', required='')
-						br
+						.row
+							.col-md-6
+								input(type='text', name='password', placeholder='Password', required='')
+							.col-md-6
+								input(type='text', name='cpass', placeholder='Confirm Password', required='')
+						.row
+							.col-md-6
+								input(type='text', name='fname', placeholder='First Name', required='')
+							.col-md-6
+								input(type='text', name='lname', placeholder='Last Name', required='')
+						.row
+							.col-md-6
+								input(type='text', name='age', placeholder='Age')
+							.col-md-6
+								input(type='text', name='phone', placeholder='Phone')
+						input(type='text', name='uni', placeholder='University', required='' ,value='University of Western Australia (UWA)' readonly)
+						span#helpBlock.help-block.bg-info.help-uni  Currently only supporting UWA
 						input(type='email', name='email', placeholder='Email', required='')
 						br
-						h4
-							| Entering Units is not required, but will help you match with others taking those units!
 						h4 Enter up to four units
-						input(type='text', name='unit1', placeholder='Unit Code')
+						.row.no-gutter
+							.col-md-3
+								input(type='text', maxlength=8 , name='unit1', placeholder='Unit Code')
+							.col-md-3
+								input(type='text', maxlength=8 , name='unit2', placeholder='Unit Code')
+							.col-md-3
+								input(type='text', maxlength=8 , name='unit3', placeholder='Unit Code')
+							.col-md-3
+								input(type='text', maxlength=8 , name='unit4', placeholder='Unit Code')
+								br
+								br
+						button.btn.btn-default.pull-right(type='button' onclick = 'addExperience()') Add Experience
 						br
-						input(type='text', name='unit2', placeholder='Unit Code')
 						br
-						input(type='text', name='unit3', placeholder='Unit Code')
-						br
-						input(type='text', name='unit4', placeholder='Unit Code')
-						br
+						div#experienceRow
 						br
 						input.button(type='submit', value='Submit')
 					br
