@@ -45,6 +45,36 @@ block content
 									input(type='text', name='exp[' + index +'][title]', placeholder='Title', value=exp[index].title )
 									textarea.form-control.exparea( name='exp[' + index +'][desc]', placeholder='Write your experience here !')=  exp[index].desc
 						- }
+						br
 						input.button(type='submit', value='Update')
 					br
 			.col-lg-6
+				.row
+					h2 &nbsp; Availability 
+						button.btn.btn-default.pull-right(type='button' onclick = '') Change Availability
+				- if( typeof(avail) !== 'undefined' && avail !== null ){
+						h4 Monday : #{avail[0].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[0].end}
+						h4 Tuesday : #{avail[1].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[1].end}
+						h4 Wednesday : #{avail[2].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[2].end}
+						h4 Thursday : #{avail[3].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[3].end}
+						h4 Friday : #{avail[4].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[4].end}
+						h4 Saturday : #{avail[5].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[5].end}
+						h4 Sunday : #{avail[6].start} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{avail[6].end}
+				- }
+					// div.availabilityrow
+					//	each val in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+					//		.row.no-gutter
+					//			.col-md-3
+					//				h3= val
+					//			.col-md-9
+					//				.col-md-3
+					//					// input(type='text', , placeholder='Start Time' )
+					//					select(name='avail[' + val + '][start]')
+					//						each time in ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00']
+					//							option(value='\'' + time + '\'')= time
+					//				.col-md-9
+					//					select(name='avail[' + val + '][end]')
+					//						each time in ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00']
+					//							option(value='\'' + time + '\'')= time */
+				br
+				br

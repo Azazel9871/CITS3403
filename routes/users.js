@@ -19,7 +19,26 @@ router.get('/profile', ensureAuthenticated , function(req, res, next){
 });
 
 router.get('/matches', ensureAuthenticated, function(req,res,next){
-  res.render('matches');
+
+  User.find({}, function(err, users){
+    var matchesusers = [];
+    for(var k = 0 ; k < req.user.units.length ; k++ ){
+      for( var i = 0 ; i < users.length ; i++){
+        for( var j = 0 ; j < users[i].units.length ; j++ ){
+          if ( req.user.units[k] == users[i].units[j] && req.user.username !== users[i].username ){
+              if ( users[i].username !== req.user.username ) {
+                matchesusers.push(users[i]);
+              }
+          }
+        }
+      }
+    }
+
+    uniqArray = matchesusers.filter(function(item,pos,self){
+      return self.indexOf(item) == pos;
+    })
+    res.render('matches', {matchlist: uniqArray, user:req.user});
+  });
 });
 
 router.post('/register', function(req, res){
@@ -35,9 +54,11 @@ router.post('/register', function(req, res){
   var password2 = req.body.cpass;
 
   var units = [req.body.unit1, req.body.unit2, req.body.unit3, req.body.unit4];
-
+  var avail = req.body.avail;
   var exp = req.body.exp;
+
   exp = JSON.stringify(exp) || null;
+  avail = JSON.stringify(avail) || null;
 
   // console.log(fname + ' '+ email + ' ' + username + ' ' + password + ' ' + password2 + ' \nUnits Are:' + units);
 
@@ -71,7 +92,8 @@ router.post('/register', function(req, res){
       username: username,
       password: password,
       units: units,
-      experience : exp
+      experience : exp,
+      availability : avail
     });
 
     User.createUser(newUser, function(err, user){

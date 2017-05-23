@@ -35,7 +35,8 @@ var UserSchema = mongoose.Schema({
     type: String
   },
   units: [String],
-  experience: String
+  experience: String,
+  availability: String
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

@@ -6,6 +6,123 @@
 	margin-right: auto;
 }
 
+	.match{
+		background-color: gray;
+		padding-left:10px;
+		padding-right:10px;
+		margin-bottom: 10px;
+		padding-left: 20px;
+		border-radius: 5px;
+	}
+
+	.allunits .highlight{
+		border-color: yellow;
+		color: yellow;
+		font-weight: bold;
+	}
+
+	.headingsMatches{
+		color: white;
+		font-weight: bold;
+	}
+
+	.unititem{
+		color: black;
+		display: inline;
+		text-align: center;
+		padding: 14px 16px;
+	}
+
+	.allunits{
+		margin-bottom: 20px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.allunits li{
+		border-color: black;
+		border-width: 1px;
+		border-style: solid;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		margin-left: 20px;
+		border-radius: 5%;
+	}
+
+	.unitSection{
+		text-align: right;
+	}
+
+
+@media (min-width: 768px){
+	.sevencol .col-md-1,
+	.sevencol .col-sm-1,
+	.sevencol .col-lg-1 {
+		width: 100%;
+	}
+}
+
+@media (min-width: 992px){
+	.sevencol .col-md-1,
+	.sevencol .col-sm-1,
+	.sevencol .col-lg-1 {
+		width: 14.285714285714285714285714285714%;
+	}
+}
+
+@media (min-width: 1200px){
+	.sevencol .col-md-1,
+	.sevencol .col-sm-1,
+	.sevencol .col-lg-1 {
+		width: 14.285714285714285714285714285714%;
+	}
+}
+
+.sevencol{
+	padding-top: 10px;
+}
+
+.sevencol .col-md-1, .sevencol .col-sm-1, .sevecol .col-lg-1{
+	text-align: center;
+	padding: 4px;
+}
+
+.eachDay{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.highlightBox{
+	background-color: darkslategray;
+	color: white;
+	font-weight: bold;
+}
+.highlightBox h4 {
+	font-weight: bold;
+}
+
+
+.sevencol .eachDay:not(:last-child){
+	border-top-color: black;
+	border-top-style: solid;
+	border-top-width: 1px;
+
+	border-right-color: black;
+	border-right-style: solid;
+	border-right-width: 1px;
+}
+
+.eachDay:last-child{
+	border-top-color: black;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.daytitle{
+	color: white;
+}
+
+
 #navBrand {
 	color: #fff;
 	text-decoration: none;

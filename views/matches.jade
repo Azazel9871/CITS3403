@@ -5,3 +5,48 @@ block content
 		#row3.row
 			#signup-wrapper.fullElement
 				h1 Matches
+			each val in matchlist
+				.container.match
+					.row
+						.col-md-3
+							h3.headingsMatches= val.fname + " " + val.lname
+							p.
+								#[i #[strong= '@' + val.username]]
+						.col-md-9.unitSection
+							h3.headingsMatches Studying Units :
+							br
+							ul.pull-right.allunits
+								each unit, index in val.units
+									- function intersect(a,b){
+									-  	var t;
+									-  	if(b.length > a.length) t=b, b=a, a=t;
+									-  	return a.filter(function(e){
+									-    	return b.indexOf(e) > -1;
+									-  	});
+									-	}
+									- var inboth = intersect(user.units, val.units);
+									- if( inboth.indexOf(unit) >= 0 ){
+											li.unititem.highlight= unit
+									- } else {
+											li.unititem= unit
+									- }
+					.row.sevencol
+						- var availability = JSON.parse( val.availability );
+						each day , index in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+							- var userStart = new Date(Date.parse('01/01/2001 ' + avail[index].start));
+							- var txt_userStart = userStart.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true});
+							- var userEnd = new Date(Date.parse('01/01/2001 ' +  avail[index].end));
+							- var txt_userEnd = userEnd.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true});
+							- var guestStart = new Date(Date.parse('01/01/2001 ' + availability[index].start));
+							- var txt_guestStart = guestStart.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true});
+							- var guestEnd = new Date(Date.parse('01/01/2001 ' + availability[index].end));
+							- var txt_guestEnd = guestEnd.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true});
+							- if( +userStart <= +guestEnd && +userEnd >= +guestStart){
+								.col-md-1.eachDay.highlightBox
+									h4.daytitle <span>#{day}
+									p </span> #{txt_guestStart} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{txt_guestEnd}
+							- } else {
+								.col-md-1.eachDay
+									h4.daytitle <span>#{day}
+									p </span> #{txt_guestStart} <i style='vertical-align:bottom;' class='material-icons'>arrow_forward</i> #{txt_guestEnd}
+							- }
