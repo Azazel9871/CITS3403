@@ -26,9 +26,29 @@ router.get('/matches', ensureAuthenticated, function(req,res,next){
       for( var i = 0 ; i < users.length ; i++){
         for( var j = 0 ; j < users[i].units.length ; j++ ){
           if ( req.user.units[k] == users[i].units[j] && req.user.username !== users[i].username ){
-              if ( users[i].username !== req.user.username ) {
-                matchesusers.push(users[i]);
+            if ( users[i].username !== req.user.username ) {
+              var currAvail = JSON.parse(req.user.availability);
+              var userAvail = JSON.parse(users[i].availability);
+              for(var m = 0 ; m < 7 ; m++){
+
+                var userStart = new Date(Date.parse('01/01/2001 ' + currAvail[m].start));
+  							var userEnd = new Date(Date.parse('01/01/2001 ' +  currAvail[m].end));
+                //console.log(userStart.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}));
+                //console.log(userEnd.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}));
+
+  							var guestStart = new Date(Date.parse('01/01/2001 ' + userAvail[m].start));
+  							var guestEnd = new Date(Date.parse('01/01/2001 ' + userAvail[m].end));
+
+                //console.log(guestStart.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}));
+                //console.log(guestEnd.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}));
+
+                if( +userStart <= +guestEnd && +userEnd >= +guestStart){
+                    matchesusers.push(users[i]);
+                }
               }
+
+
+            }
           }
         }
       }
